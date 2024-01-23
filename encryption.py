@@ -53,49 +53,48 @@ def binToChar(b):
 # convert a string of characters into a list of 1's and 0's using Base64 encoding
 def strToBin(s):
     string = s.replace(' ','')
-    result = []
+    two_dimensional_list = []
     for char in string:
         current_character = charToBin(char)
-        result.append(current_character)
+        two_dimensional_list.append(current_character)
 
+    result = [element for sublist in two_dimensional_list for element in sublist]
     return result
 
 # convert a list of 1's and 0's into a string of characters using Base64 encoding
 def binToStr(b_list):
     result = ""
-    for i in range(len(b_list)):
-        current_binary = binToChar(b_list[i])
+    if len(b_list) % 6 == 0:
+        two_dimensional_list = [b_list[i:i + 6] for i in range(0, len(b_list), 6)]
+    for i in range(len(two_dimensional_list)):
+        current_binary = binToChar(two_dimensional_list[i])
         result += current_binary
 
     return result
 
+
 # generates a sequence of pseudo-random numbers using Linear Feedback Shift Register (LFSR)
 def generatePad(seed, k, length):
-    pad = seed.copy()  # Initialize the seed with the given value
-    seed_length = len(seed)
+    # pad = seed.copy()  # Initialize the seed with the given value
+    # seed_length = len(seed)
 
-    for i in range(seed_length, length):
-        feedback = pad[i - seed_length] ^ pad[i - k]  # XOR the feedback bits
-        pad.append(feedback)
+    # for i in range(seed_length, length):
+    #     feedback = pad[i - seed_length] ^ pad[i - k]  # XOR the feedback bits
+    #     pad.append(feedback)
 
-    return pad[:length]
+    # return pad[:length]
+    return ''
 
 # takes a message and returns it as an encrypted string using an [N, k] LFSR
 def encrypt(message, seed, k):
-    encrypted_message = ""
-    lfsr_state = generatePad(seed, k, len(message))
+    # encrypted_message = ""
+    # lfsr_state = generatePad(seed, k, len(message))
 
-    for i in range(len(message)):
-        char_bin = charToBin(message[i])
-        encrypted_bin = [char_bin[j] ^ lfsr_state[i + j] for j in range(len(char_bin))] # XOR with LFSR output
-        encrypted_char = binToChar(encrypted_bin)
-        encrypted_message += encrypted_char
+    # for i in range(len(message)):
+    #     char_bin = charToBin(message[i])
+    #     encrypted_bin = [char_bin[j] ^ lfsr_state[i + j] for j in range(len(char_bin))] # XOR with LFSR output
+    #     encrypted_char = binToChar(encrypted_bin)
+    #     encrypted_message += encrypted_char
 
-    return encrypted_message
-
-plain = "IdLoveToStayHereAndBeNormalButItsJustSoOverrated"
-seed = [1, 0, 1, 0, 0, 1, 0, 0, 1, 0]
-k = 8
-encrypted = encrypt(plain, seed, k)
-print("Expected:", "F2n9bUBl5BPGNMm1sypLMADHzuvTjGk4YD8hG+96lMmA24qX")
-print("Encrypted:", encrypted)
+    # return encrypted_message
+    return ''
