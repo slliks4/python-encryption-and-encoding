@@ -75,26 +75,26 @@ def binToStr(b_list):
 
 # generates a sequence of pseudo-random numbers using Linear Feedback Shift Register (LFSR)
 def generatePad(seed, k, length):
-    # pad = seed.copy()  # Initialize the seed with the given value
-    # seed_length = len(seed)
+    pad = seed.copy()  # Initialize the seed with the given value
+    seed_length = len(seed)
 
-    # for i in range(seed_length, length):
-    #     feedback = pad[i - seed_length] ^ pad[i - k]  # XOR the feedback bits
-    #     pad.append(feedback)
+    for i in range(seed_length, length):
+        feedback = pad[i - seed_length] ^ pad[i - k]  # XOR the feedback bits
+        pad.append(feedback)
 
-    # return pad[:length]
+    return pad[:length]
     return ''
 
 # takes a message and returns it as an encrypted string using an [N, k] LFSR
 def encrypt(message, seed, k):
-    # encrypted_message = ""
-    # lfsr_state = generatePad(seed, k, len(message))
+    encrypted_message = ""
+    lfsr_state = generatePad(seed, k, len(message))
 
-    # for i in range(len(message)):
-    #     char_bin = charToBin(message[i])
-    #     encrypted_bin = [char_bin[j] ^ lfsr_state[i + j] for j in range(len(char_bin))] # XOR with LFSR output
-    #     encrypted_char = binToChar(encrypted_bin)
-    #     encrypted_message += encrypted_char
+    for i in range(len(message)):
+        char_bin = charToBin(message[i])
+        encrypted_bin = [char_bin[j] ^ lfsr_state[i + j] for j in range(len(char_bin))] # XOR with LFSR output
+        encrypted_char = binToChar(encrypted_bin)
+        encrypted_message += encrypted_char
 
-    # return encrypted_message
+    return encrypted_message
     return ''
